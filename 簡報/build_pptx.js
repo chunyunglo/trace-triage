@@ -609,13 +609,13 @@ function rows(s, items, y0 = 1.85, rowH = 1.0, size = 17) {
     [{ text: "Swets, J. A. (1988). Measuring the accuracy of diagnostic systems. " }, { text: "Science, 240", options: { italic: true } }, { text: "(4857), 1285–1293. https://doi.org/10.1126/science.3287615" }],
     [{ text: "TypeSafe. (2026). " }, { text: "Models", options: { italic: true } }, { text: ". TypeSafe documentation. https://docs.typesafe.ai/models" }],
   ];
-  let ry = 1.8;
+  let ry = 1.7;
   refs.push([{ text: "本研究程式與資料（2026）。" }, { text: "TRACE", options: { italic: true } }, { text: "。GitHub。" + REPO }]);
   const LINES = [1, 2, 2, 2, 1, 2, 1, 1];
   refs.forEach((r, i) => {
-    const h = 0.33 * LINES[i] + 0.06;
-    s.addText(r.map((p) => ({ text: p.text, options: p.options || {} })), { x: 0.76, y: ry, w: 11.8, h, fontSize: 14, color: COL.cream, valign: "top", margin: 0, isTextBox: true, lineSpacingMultiple: 1.2 });
-    ry += h + 0.14;
+    const h = 0.3 * LINES[i] + 0.05;
+    s.addText(r.map((p) => ({ text: p.text, options: p.options || {} })), { x: 0.76, y: ry, w: 11.8, h, fontSize: 13, color: COL.cream, valign: "top", margin: 0, isTextBox: true, lineSpacingMultiple: 1.2 });
+    ry += h + 0.1;
   });
 }
 
