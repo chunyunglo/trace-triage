@@ -22,6 +22,13 @@ def _big_legend(self, *a, **k):
     k["bbox_to_anchor"] = (1.02, 0.5)
     return _leg(self, *a, **k)
 Axes.legend = _big_legend
+# The deck calls c "判斷傾向"; the report figures keep the original wording.
+_set = Axes.set
+def _deck_set(self, *a, **k):
+    if "title" in k:
+        k["title"] = k["title"].replace("判斷準則", "判斷傾向")
+    return _set(self, *a, **k)
+Axes.set = _deck_set
 trials, preds = analyze.load()
 analyze.plot(json.loads((analyze.RES / "summary.json").read_text()), trials, preds)
 print("ok")

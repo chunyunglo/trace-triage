@@ -65,14 +65,16 @@ def fig(dark, out):
     f, ax = plt.subplots(1, 2, figsize=(10, 4))
     for n in NAMES:
         ax[0].plot([0, 10, 30, 50], [S["auc"][n][str(m)] for m in analyze.MASKS], marker="o", color=cols[n], label=NAMES[n])
-    ax[0].set(title="AUC（口語回報，確認資料）", xlabel="欄位遮蔽比例（%）", ylim=(0.45, 1.0)); ax[0].legend(fontsize=12 if dark else 8)
+    ax[0].set(title="AUC（口語回報，確認資料）", xlabel="欄位遮蔽比例（%）", ylim=(0.45, 1.16 if dark else 1.0))
+    if dark: ax[0].set_yticks([0.5, 0.6, 0.7, 0.8, 0.9, 1.0])  # headroom so the legend clears the lines
+    ax[0].legend(fontsize=12 if dark else 8, loc="upper right" if dark else "best")
     sc = list(analyze.SCENARIOS); x = range(len(sc)); w = .27
     for i, n in enumerate(NAMES):
         ax[1].bar([j + (i - 1) * w for j in x], [S["scen"][s]["cost"][n] for s in sc], w, color=cols[n], label=NAMES[n])
     ax[1].set_xticks(list(x), [f"{s}\n({analyze.SCENARIOS[s]:g}:1)" for s in sc]); ax[1].set(title="政策總成本（越低越好）")
     for j, s in enumerate(sc):
         e = S["scen"][s]; mark = "＊" if e["ci"][1] < 0 else ("" if e["ci"][0] <= 0 else "†")
-        if mark: ax[1].text(j + w, e["cost"]["kev"] + 40, mark, ha="center", fontsize=14, color=cols["kev"])
+        if mark: ax[1].text(j + w, e["cost"]["kev"] + 40, mark, ha="center", fontsize=26 if dark else 14, color=FG if dark else cols["kev"])
     f.tight_layout(); f.savefig(out, dpi=200)
 fig(False, ROOT / "figures" / "messy_confirm.png")
 fig(True, ROOT.parent / "簡報" / "figures" / "messy_confirm.png")

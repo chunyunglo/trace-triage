@@ -200,14 +200,26 @@ def main() -> None:
             summary["adaptive"][j][name] = res
 
     # Cloud outage: Jev answers when the link is up, otherwise the unit falls
-    # back to the conservative rules. Rates mix linearly in the outage share q.
+    # back to the conservative rules. Expected counts mix linearly in the outage
+    # share q. The over-triage rate is a ratio whose denominator (reports called
+    # red) differs between the two judges, so it is recomputed from the mixed
+    # counts instead of being averaged.
     if "jev" in preds:
+        def counts(rows, thr=0.5):
+            tp = sum(sig and p >= thr for sig, p in rows)
+            fp = sum((not sig) and p >= thr for sig, p in rows)
+            fn = sum(sig and p < thr for sig, p in rows)
+            return tp, fp, fn
+
         for q in [0.0, 0.3, 0.7, 1.0]:
             out = {}
             for m in MASKS:
-                a = sdt(rows_for(trials, preds["jev"], m))
-                b = sdt(rows_for(trials, preds["rules_conservative"], m))
-                out[str(m)] = {k: (1 - q) * a[k] + q * b[k] for k in ["under", "over", "red_rate"]}
+                a = counts(rows_for(trials, preds["jev"], m))
+                b = counts(rows_for(trials, preds["rules_conservative"], m))
+                n_rows = len(rows_for(trials, preds["jev"], m))
+                tp, fp, fn = ((1 - q) * x + q * y for x, y in zip(a, b))
+                out[str(m)] = {"under": fn / (tp + fn), "over": fp / (tp + fp) if tp + fp else 0.0,
+                               "red_rate": (tp + fp) / n_rows}
             summary["outage"][str(q)] = out
 
     (RES / "summary.json").write_text(json.dumps(summary, ensure_ascii=False, indent=1))
