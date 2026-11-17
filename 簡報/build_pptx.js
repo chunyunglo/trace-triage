@@ -33,7 +33,7 @@ pres.defineSlideMaster({
   background: { color: COL.bg },
   objects: [
     { line: { x: 0.76, y: 6.95, w: W - 1.52, h: 0, line: { color: "4A5442", width: 0.75 } } },
-    { text: { text: "TRACE · 國防（三）期末報告", options: { x: 0.76, y: 7.0, w: 6, h: 0.3, fontFace: MONO, fontSize: 10, color: COL.dim, margin: 0 } } },
+    { text: { text: "TRACE · 期末報告", options: { x: 0.76, y: 7.0, w: 6, h: 0.3, fontFace: MONO, fontSize: 10, color: COL.dim, margin: 0 } } },
     { placeholder: { options: { name: "kicker", type: "body", x: 0.76, y: 0.42, w: 11.8, h: 0.35, fontFace: MONO, fontSize: 13, bold: true, color: COL.muted, margin: 0, charSpacing: 3 }, text: "" } },
     { placeholder: { options: { name: "title", type: "title", x: 0.76, y: 0.8, w: 11.8, h: 0.75, fontFace: SANS, fontSize: 30, bold: true, color: COL.cream, margin: 0, valign: "middle", align: "left" }, text: "" } },
   ],
@@ -130,7 +130,7 @@ function rows(s, items, y0 = 1.85, rowH = 1.0, size = 17, start = 1) {
 // === 01 TITLE ===
 {
   const s = pres.addSlide({ masterName: "COVER" }); n++;
-  s.addText("國防（三）／期末報告", { x: 0.9, y: 0.75, w: 6, h: 0.35, fontFace: MONO, fontSize: 13, bold: true, color: COL.muted, charSpacing: 3, margin: 0, isTextBox: true });
+  s.addText("期末報告", { x: 0.9, y: 0.75, w: 6, h: 0.35, fontFace: MONO, fontSize: 13, bold: true, color: COL.muted, charSpacing: 3, margin: 0, isTextBox: true });
   s.addText("TRACE", { x: 0.9, y: 1.15, w: 6, h: 0.9, fontFace: MONO, fontSize: 60, bold: true, color: COL.paper, charSpacing: 12, margin: 0, isTextBox: true });
   s.addText("Triage Recommendation Assessment under Communication Errors", { x: 0.9, y: 2.05, w: 7.6, h: 0.3, fontFace: MONO, fontSize: 12, color: COL.muted, margin: 0, isTextBox: true });
   s.addText([{ text: "人工智慧輔助戰傷檢傷之", options: { breakLine: true } }, { text: "國軍衛勤" }, { text: "門檻政策", options: { color: COL.redText } }, { text: "評估" }],
