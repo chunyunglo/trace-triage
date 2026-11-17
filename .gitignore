@@ -1,0 +1,21 @@
+# Whitelist: only the TRACE code, data and deck builder are part of the repository.
+/*
+!/.gitignore
+!/README.md
+!/LICENSE
+!/triage_study/
+!/簡報/
+
+# Inside triage_study: no third-party clones, environments, binaries, logs or secrets
+/triage_study/kev/
+/triage_study/.venv*/
+/triage_study/apple_fm/fm_triage
+/triage_study/*.log
+/triage_study/jev_api_key.txt
+__pycache__/
+
+# Inside 簡報: only the builder scripts and figures
+/簡報/*
+!/簡報/build_pptx.js
+!/簡報/plot_deck_figs.py
+!/簡報/figures/
